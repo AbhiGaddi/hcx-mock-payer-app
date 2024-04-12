@@ -326,6 +326,7 @@ const ClaimDetails: React.FC<claimProps> = ({ claimType }: claimProps) => {
             className={`leading-relaxed ${openTab === 2 ? 'block' : 'hidden'}`}
           >
             {claim ?
+             <>
               <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
                 <div className="flex flex-col gap-9">
                   {claim.diagnosis && claim.diagnosis.length > 0 ? (
@@ -363,12 +364,16 @@ const ClaimDetails: React.FC<claimProps> = ({ claimType }: claimProps) => {
                       value: `${item.unitPrice.value} ${item.unitPrice.currency}`,
                     }))}
                   ></CommonDataTable>
-                  <FileManager files={supportingFiles}></FileManager>
+                  {/* <FileManager files={supportingFiles}></FileManager> */}
                 </div>
                 <div className="flex flex-col gap-9">
                   <Checklist checklist={checklist} settled={medSettled} title="Checklist" type="medical" onApprove={(type, approvedAmount, remarks) => handleApprove(requestID, type, remarks, approvedAmount)} onReject={(type) => { handleReject(requestID, type) }}></Checklist>
                 </div>
-              </div>
+                </div>
+                <div className="mt-5 mb-5">
+                  <DocumentsList files={supportingFiles}></DocumentsList>
+                </div>
+                </>
               : null}
           </div>
           <div
@@ -388,11 +393,14 @@ const ClaimDetails: React.FC<claimProps> = ({ claimType }: claimProps) => {
                         value: `${item.unitPrice.value} ${item.unitPrice.currency}`,
                       }))}
                     ></CommonDataTable>
-                    <FileManager files={supportingFiles}></FileManager>
+                    {/* <FileManager files={supportingFiles}></FileManager> */}
                   </div>
                   <div className="flex flex-col gap-9">
                     <Checklist checklist={financialCheckList} settled={finSettled} type="financial" title="Checklist" onApprove={(type, approvedAmount, remarks) => handleApprove(requestID, type, remarks, approvedAmount)} onReject={(type) => { handleReject(requestID, type) }}></Checklist>
                   </div>
+                </div>
+                <div className="mt-5 mb-5">
+                  <DocumentsList files={supportingFiles}></DocumentsList>
                 </div>
               </>
               : null}
